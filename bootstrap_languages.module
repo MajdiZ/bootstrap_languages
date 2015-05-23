@@ -82,6 +82,13 @@ function bootstrap_languages_block_view($type = 'language') {
     $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
     $languages = language_negotiation_get_switch_links($type, $path);
 
+    // Load the Languages for Bootstrap 3 library.
+    $library = libraries_load('bootstrap-languages');
+    if (!$library['loaded']) {
+      watchdog('Bootstrap Languages', 'Could not load the Languages for Bootstrap 3 library.', NULL, WATCHDOG_ERROR);
+      return;
+    }
+
     // Check if we should support Domain access
     if ($domain_locale_exists = module_exists('domain_locale')) {
       global $_domain;
@@ -116,11 +123,8 @@ function bootstrap_languages_block_view($type = 'language') {
       }
     }
 
-    // Add css from Languages for Bootstrap 3 library.
-    if (($library = libraries_load('bootstrap-languages')) && !empty($library['loaded'])) {
-      drupal_add_css($library['library path'] . '/languages.min.css');
-    }
     // Position language switcher to the right of the navbar.
+    drupal_add_css($library['library path'] . '/languages.min.css');
     drupal_add_css('.navbar #block-bootstrap-languages-language
     { float: right; margin: 8px 0px 8px 5px; }
     .btn.btn-sm > .lang-sm { top: 2px !important; }', array('type' => 'inline'));
