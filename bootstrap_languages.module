@@ -45,6 +45,12 @@ function bootstrap_languages_block_configure($delta = '') {
   $settings = _bootstrap_languages_get_settings();
   $form = array();
 
+  // Check if the Languages for Bootstrap 3 library is present.
+  $library = libraries_load('bootstrap-languages');
+  if ($library['loaded'] == FALSE) {
+    drupal_set_message($library['error message'], 'error');
+  }
+
   $form['bootstrap_languages'] = array(
     '#type' => 'fieldset',
     '#title' => t('Bootstrap Languages settings'),
@@ -85,7 +91,7 @@ function bootstrap_languages_block_view($type = 'language') {
     // Load the Languages for Bootstrap 3 library.
     $library = libraries_load('bootstrap-languages');
     if (!$library['loaded']) {
-      watchdog('Bootstrap Languages', 'Could not load the Languages for Bootstrap 3 library.', NULL, WATCHDOG_ERROR);
+      watchdog('Bootstrap Languages', $library['error message'], NULL, WATCHDOG_ERROR);
       return;
     }
 
