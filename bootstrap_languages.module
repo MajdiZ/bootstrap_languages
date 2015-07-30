@@ -13,7 +13,7 @@ function bootstrap_languages_libraries_info() {
     'name' => 'Languages for Bootstrap 3',
     'vendor url' => 'http://usrz.github.io/bootstrap-languages/',
     'download url' => 'https://github.com/usrz/bootstrap-languages/archive/master.zip',
-    'version' => '1.0',
+    'version' => '2.0',
     'files' => array(
       'css' => array('languages.min.css'),
     ),
