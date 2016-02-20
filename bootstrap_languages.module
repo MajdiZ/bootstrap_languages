@@ -131,9 +131,7 @@ function bootstrap_languages_block_view($type = 'language') {
 
     // Position language switcher to the right of the navbar.
     drupal_add_css($library['library path'] . '/languages.min.css');
-    drupal_add_css('.navbar #block-bootstrap-languages-language
-    { float: right; margin: 8px 0px 8px 5px; }
-    .btn.btn-sm > .lang-sm { top: 2px !important; }', array('type' => 'inline'));
+    drupal_add_css($module_path . '/bootstrap_languages.css');
 
     // Build markup for the Bootstrap languages switcher.
     $default_option = isset($selected_option) ? $selected_option : $options[0];
