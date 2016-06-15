@@ -72,7 +72,7 @@ function bootstrap_languages_block_configure($delta = '') {
       'btn-primary' => 'Primary',
       'btn-info' => 'Info',
     ),
-    '#default_value' => $settings['btntype'],
+    '#default_value' => isset($settings['btntype']) ? $settings['btntype'] : 'btn-default',
   );
   return $form;
 }
