@@ -86,9 +86,9 @@ function bootstrap_languages_block_configure($delta = '') {
     '#type' => 'select',
     '#title' => t('Bootstrap button type'),
     '#options' => array(
-      'btn-default' => 'Default',
-      'btn-primary' => 'Primary',
-      'btn-info' => 'Info',
+      'btn-default' => t('Default'),
+      'btn-primary' => t('Primary'),
+      'btn-info' => t('Info'),
     ),
     '#default_value' => $settings['btn_type'],
   );
@@ -167,7 +167,7 @@ function bootstrap_languages_block_view($type = 'language') {
     drupal_add_css($library['library path'] . '/languages.min.css');
     drupal_add_css($module_path . '/bootstrap_languages.css');
 
-    // Set the block subject and content
+    // Set the block subject and content.
     if (isset($languages->links)) {
       $block['subject'] = t('Languages');
       $block['content'] = theme('bootstrap_languages_switcher_block', array(
