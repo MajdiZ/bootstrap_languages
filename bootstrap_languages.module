@@ -23,6 +23,23 @@ function bootstrap_languages_libraries_info() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function bootstrap_languages_theme($existing, $type, $theme, $path) {
+  $templates_path = drupal_get_path('module', 'bootstrap_languages') . '/templates';
+  return array(
+    'bootstrap_languages_switcher_block' => array(
+      'template' => 'bootstrap-languages-switcher-block',
+      'variables' => array(
+        'default_option' => NULL,
+        'btn_type' => NULL,
+        'languages' => NULL,
+      ),
+      'path' => $templates_path,
+    ),
+  );
+}
+/**
  * Implements hook_block_info().
  */
 function bootstrap_languages_block_info() {
@@ -149,23 +166,14 @@ function bootstrap_languages_block_view($type = 'language') {
     drupal_add_css($library['library path'] . '/languages.min.css');
     drupal_add_css($module_path . '/bootstrap_languages.css');
 
-    // Build markup for the Bootstrap languages switcher.
-    $default_option = isset($selected_option) ? $selected_option : $options[0];
-    $markup = '<div class="btn-group">';
-    $markup .= '  <button class="btn ' . $settings['btn_type'] . ' btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">';
-    $markup .= '    <span class="lang-sm" lang="' . $default_option . '"></span> <span class="caret"></span>';
-    $markup .= '  </button>';
-    $markup .= '  <ul class="dropdown-menu" role="menu">';
-    foreach ($options as $lang_code => $lang_link) {
-      $markup .= '    <li><a href="' . $lang_link . '"><span class="lang-sm lang-lbl" lang="' . $lang_code . '"></span></a></li>';
-    }
-    $markup .= '  </ul>';
-    $markup .= '</div>';
-
     // Set the block subject and content
     if (isset($languages->links)) {
       $block['subject'] = t('Languages');
-      $block['content'] = $markup;
+      $block['content'] = theme('bootstrap_languages_switcher_block', array(
+        'default_option' => isset($selected_option) ? $selected_option : $options[0],
+        'btn_type' => $settings['btn_type'] ,
+        'languages' => $options,
+      ));
       return $block;
     }
   }
