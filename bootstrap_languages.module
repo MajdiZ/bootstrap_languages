@@ -98,6 +98,11 @@ function bootstrap_languages_block_view($type = 'language') {
     $options = array();
     $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
     $languages = language_negotiation_get_switch_links($type, $path);
+    
+    // If only default language negotiation links will be empty.
+    if (!isset($languages->links)) {
+      return;
+    }
 
     // Load the Languages for Bootstrap 3 library.
     $library = libraries_load('bootstrap-languages');
