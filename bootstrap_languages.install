@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Install, update, and uninstall functions for the bootstrap_languages module.
@@ -30,7 +31,7 @@ function bootstrap_languages_requirements($phase) {
   $requirements = array();
   $url = 'https://github.com/usrz/bootstrap-languages';
 
-  switch($phase){
+  switch ($phase) {
     case 'runtime':
       $bootstrap_languages_library = libraries_load('bootstrap-languages');
 

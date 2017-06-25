@@ -39,6 +39,7 @@ function bootstrap_languages_theme($existing, $type, $theme, $path) {
     ),
   );
 }
+
 /**
  * Implements hook_block_info().
  */
@@ -115,7 +116,7 @@ function bootstrap_languages_block_view($type = 'language') {
     $options = array();
     $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
     $languages = language_negotiation_get_switch_links($type, $path);
-    
+
     // If only default language negotiation links will be empty.
     if (!isset($languages->links)) {
       return;
@@ -128,7 +129,7 @@ function bootstrap_languages_block_view($type = 'language') {
       return;
     }
 
-    // Check if we should support Domain access
+    // Check if we should support Domain access.
     if ($domain_locale_exists = module_exists('domain_locale')) {
       global $_domain;
       $domain_languages = domain_locale_lookup($_domain['domain_id']);
@@ -136,17 +137,17 @@ function bootstrap_languages_block_view($type = 'language') {
 
     // Now we iterate on $languages to build needed options for dropdown.
     foreach ($languages->links as $lang_code => $lang_options) {
-      // The language is not enabled on this domain
+      // The language is not enabled on this domain.
       if ($domain_locale_exists && !array_key_exists($lang_code, $domain_languages)) {
         continue;
       }
 
-      // There is no translation for this language and not all languages are shown
+      // There is no translation for this language and not all languages shown.
       if (!isset($lang_options['href']) && (!$settings['show_all'])) {
         continue;
       }
 
-      // Build the options in an associative array (lang_code => lang_link)
+      // Build the options in an associative array (lang_code => lang_link).
       $href = isset($lang_options['href']) ? $lang_options['href'] : '<front>';
       $lang_link = check_plain(url($href, array(
         'language' => $lang_options['language'],
