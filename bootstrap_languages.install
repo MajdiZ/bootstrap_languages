@@ -7,8 +7,19 @@
 /**
  * Implements hook_install().
  */
+function bootstrap_languages_install() {
+  $block_default_settings = array(
+    'show_all' => 1,
+    'btn_type' => 'btn-default',
+  );
+  variable_set('bootstrap_languages_block_settings', $block_default_settings);
+}
+
+/**
+ * Implements hook_install().
+ */
 function bootstrap_languages_uninstall() {
-  variable_del('bootstrap_languages');
+  variable_del('bootstrap_languages_block_settings');
 }
 
 /**
@@ -24,7 +35,6 @@ function bootstrap_languages_requirements($phase) {
       $bootstrap_languages_library = libraries_load('bootstrap-languages');
 
       if (!$bootstrap_languages_library['loaded']) {
-
         $requirements['bootstrap_languages'] = array(
           'title' => $t('Bootstrap languages library'),
           'value' => $t('Not installed'),

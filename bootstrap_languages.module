@@ -42,7 +42,7 @@ function bootstrap_languages_block_info() {
  * Implements hook_block_configure().
  */
 function bootstrap_languages_block_configure($delta = '') {
-  $settings = _bootstrap_languages_get_settings();
+  $settings = variable_get('bootstrap_languages_block_settings');
   $form = array();
 
   // Check if the Languages for Bootstrap 3 library is present.
@@ -58,13 +58,13 @@ function bootstrap_languages_block_configure($delta = '') {
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
-  $form['bootstrap_languages']['showall'] = array(
+  $form['bootstrap_languages']['show_all'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show all enabled languages'),
     '#description' => t('Show all languages in the switcher no matter if there is a translation for the node or not. For languages without translation the switcher will redirect to homepage.'),
-    '#default_value' => $settings['showall'],
+    '#default_value' => $settings['show_all'],
   );
-  $form['bootstrap_languages']['btntype'] = array(
+  $form['bootstrap_languages']['btn_type'] = array(
     '#type' => 'select',
     '#title' => t('Bootstrap button type'),
     '#options' => array(
@@ -72,7 +72,7 @@ function bootstrap_languages_block_configure($delta = '') {
       'btn-primary' => 'Primary',
       'btn-info' => 'Info',
     ),
-    '#default_value' => isset($settings['btntype']) ? $settings['btntype'] : 'btn-default',
+    '#default_value' => $settings['btn_type'],
   );
   return $form;
 }
@@ -82,10 +82,10 @@ function bootstrap_languages_block_configure($delta = '') {
  */
 function bootstrap_languages_block_save($delta = '', $edit = array()) {
   $bootstrap_languages_settings = array(
-    'showall' => $edit['showall'],
-    'btntype' => $edit['btntype'],
+    'show_all' => $edit['show_all'],
+    'btn_type' => $edit['btn_type'],
   );
-  variable_set('bootstrap_languages', $bootstrap_languages_settings);
+  variable_set('bootstrap_languages_block_settings', $bootstrap_languages_settings);
 }
 
 /**
@@ -93,7 +93,7 @@ function bootstrap_languages_block_save($delta = '', $edit = array()) {
  */
 function bootstrap_languages_block_view($type = 'language') {
   if (drupal_multilingual()) {
-    $settings = _bootstrap_languages_get_settings();
+    $settings = variable_get('bootstrap_languages_block_settings');
     $module_path = drupal_get_path('module', 'bootstrap_languages');
     $options = array();
     $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
@@ -120,7 +120,7 @@ function bootstrap_languages_block_view($type = 'language') {
       }
 
       // There is no translation for this language and not all languages are shown
-      if (!isset($lang_options['href']) && (!$settings['showall'])) {
+      if (!isset($lang_options['href']) && (!$settings['show_all'])) {
         continue;
       }
 
@@ -147,7 +147,7 @@ function bootstrap_languages_block_view($type = 'language') {
     // Build markup for the Bootstrap languages switcher.
     $default_option = isset($selected_option) ? $selected_option : $options[0];
     $markup = '<div class="btn-group">';
-    $markup .= '  <button class="btn ' . $settings['btntype'] . ' btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">';
+    $markup .= '  <button class="btn ' . $settings['btn_type'] . ' btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">';
     $markup .= '    <span class="lang-sm" lang="' . $default_option . '"></span> <span class="caret"></span>';
     $markup .= '  </button>';
     $markup .= '  <ul class="dropdown-menu" role="menu">';
@@ -164,14 +164,4 @@ function bootstrap_languages_block_view($type = 'language') {
       return $block;
     }
   }
-}
-
-/**
- * Helper function to get Bootstrap Languages settings
- */
-function _bootstrap_languages_get_settings($settings = NULL) {
-  $defaults = array(
-    'showall' => 0,
-  );
-  return array_merge($defaults, variable_get('bootstrap_languages', $defaults));
 }
