@@ -5,6 +5,13 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function bootstrap_languages_uninstall() {
+  variable_del('bootstrap_languages');
+}
+
+/**
  * Implements hook_requirements().
  */
 function bootstrap_languages_requirements($phase) {
