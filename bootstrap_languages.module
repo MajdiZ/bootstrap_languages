@@ -114,7 +114,7 @@ function bootstrap_languages_block_view($type = 'language') {
     $settings = variable_get('bootstrap_languages_block_settings');
     $module_path = drupal_get_path('module', 'bootstrap_languages');
     $options = array();
-    $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
+    $path = drupal_is_front_page() ? '<front>' : current_path() ;
     $languages = language_negotiation_get_switch_links($type, $path);
 
     // If only default language negotiation links will be empty.
@@ -149,14 +149,14 @@ function bootstrap_languages_block_view($type = 'language') {
 
       // Build the options in an associative array (lang_code => lang_link).
       $href = isset($lang_options['href']) ? $lang_options['href'] : '<front>';
-      $lang_link = check_plain(url($href, array(
+      $lang_link = url($href, array(
         'language' => $lang_options['language'],
         'query' => isset($lang_options['query']) ? $lang_options['query'] : '',
-      )));
+      ));
       $options[$lang_code] = $lang_link;
 
       // Determine selected language option.
-      if (isset($lang_options['href']) && ($lang_options['href'] == $_GET['q']
+      if (isset($lang_options['href']) && ($lang_options['href'] == current_path()
         || ($lang_options['href'] == '<front>' && drupal_is_front_page()))
         && ($lang_code == $GLOBALS[$type]->language)) {
         $selected_option = $lang_code;

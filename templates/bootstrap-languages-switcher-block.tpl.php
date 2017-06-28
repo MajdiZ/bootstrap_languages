@@ -20,7 +20,7 @@
   </button>
   <ul class="dropdown-menu" role="menu">
     <?php foreach ($languages as $lang_code => $lang_link) : ?>
-      <li><a href="<?php print $lang_link?>">
+      <li><a href="<?php print $lang_link; ?>">
           <span class="lang-sm lang-lbl" lang="<?php print $lang_code; ?>"></span>
         </a>
       </li>

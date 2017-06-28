@@ -7,14 +7,14 @@
   top: 2px !important;
 }
 
- #block-bootstrap-languages-language .dropdown-menu{
+#block-bootstrap-languages-language .dropdown-menu {
   left: inherit;
   right: 0;
 }
 
-div[aria-expanded="true"] #block-bootstrap-languages-language .btn-group.open{
+div[aria-expanded="true"] #block-bootstrap-languages-language .btn-group.open {
   position: static;
 }
-div[aria-expanded="true"] #block-bootstrap-languages-language .btn-group.open .dropdown-menu{
+div[aria-expanded="true"] #block-bootstrap-languages-language .btn-group.open .dropdown-menu {
   margin-right: 15px;
 }
