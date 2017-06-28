@@ -114,7 +114,7 @@ function bootstrap_languages_block_view($type = 'language') {
     $settings = variable_get('bootstrap_languages_block_settings');
     $module_path = drupal_get_path('module', 'bootstrap_languages');
     $options = array();
-    $path = drupal_is_front_page() ? '<front>' : current_path() ;
+    $path = drupal_is_front_page() ? '<front>' : current_path();
     $languages = language_negotiation_get_switch_links($type, $path);
 
     // If only default language negotiation links will be empty.
