@@ -1,6 +1,6 @@
 Bootstrap Languages
 ===================
-Raven module integrates the
+Bootstrap module integrates the
 [Bootstrap Languages](https://github.com/usrz/bootstrap-languages)
 
 ## Installation for Drupal 7
