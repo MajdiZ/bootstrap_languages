@@ -171,7 +171,7 @@ function bootstrap_languages_block_view($type = 'language') {
     if (isset($languages->links)) {
       $block['subject'] = t('Languages');
       $block['content'] = theme('bootstrap_languages_switcher_block', array(
-        'default_option' => isset($selected_option) ? $selected_option : $options[0],
+        'default_option' => isset($selected_option) ? $selected_option : reset($options),
         'btn_type' => $settings['btn_type'] ,
         'languages' => $options,
       ));
