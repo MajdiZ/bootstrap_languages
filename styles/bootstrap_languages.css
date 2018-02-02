@@ -10,6 +10,11 @@
 .block-bootstrap-languages .dropdown-menu {
   left: inherit;
   right: 0;
+  min-width: 0;
+}
+
+.block-bootstrap-languages.icons-dropdown-style .dropdown-menu .lang-sm:after {
+  content: none;
 }
 
 div[aria-expanded="true"] .block-bootstrap-languages .btn-group.open {
